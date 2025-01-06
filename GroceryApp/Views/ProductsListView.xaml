@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GroceryApp.Views.ProductsListView"
+             xmlns:viewmodels="clr-namespace:GroceryApp.ViewModels"
+             xmlns:model="clr-namespace:GroceryApp.Models"
+             xmlns:views="clr-namespace:GroceryApp.Views"           
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:uranium="http://schemas.enisn-projects.io/dotnet/maui/uraniumui"             
+             x:DataType="viewmodels:ProductsListViewModel"           
+             Shell.FlyoutBehavior="Disabled"
+             Shell.NavBarIsVisible="False"
+             Shell.TabBarIsVisible="False"             
+            >
+    <ScrollView>
+        <VerticalStackLayout  StyleClass="PrimaryContainer" Padding="10"  Background="Black">
+            <CollectionView ItemsSource="{Binding Products}"
+                        SelectionMode="Single"           
+                        SelectedItem="{Binding SelectedProduct, Mode=TwoWay}"
+                        SelectionChangedCommand="{Binding ShowCommand}"
+                        SelectionChangedCommandParameter="{Binding SelectedItem, Source={RelativeSource Self}, x:DataType=CollectionView}"
+                        Grid.Row="1" >
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Product">
+
+                        <VerticalStackLayout  >
+                            <BoxView StyleClass="Divider" />
+                            <Label Padding="0,10" VerticalTextAlignment="Center"
+                            Text="{Binding title}" 
+                            FontAttributes="Bold"    
+                            HorizontalTextAlignment="Start"
+                            />
+                            <HorizontalStackLayout Padding="10,0" WidthRequest="400" >
+                                <Image 
+                                 Source="{Binding imageUrl}" 
+                                 Aspect="AspectFill"
+                                 HeightRequest="60" 
+                                 WidthRequest="60"
+                                 HorizontalOptions="Start"   />
+
+                                <Label Padding="10" 
+                                 Text="{Binding summary}"                                
+                                 VerticalOptions="Center" LineBreakMode="WordWrap"  WidthRequest="300" />
+                          
+                            </HorizontalStackLayout>
+                            <BoxView StyleClass="Divider" />
+                        </VerticalStackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </VerticalStackLayout>
+    </ScrollView>
+</views:ContentPageBase>
